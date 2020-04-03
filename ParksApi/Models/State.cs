@@ -11,6 +11,7 @@ namespace ParksApi.Models
         }
         public int StateId { get; set; }
         public string Name { get; set; }
+        public string Region { get; set; }
         public ICollection<Park> Parks { get; set; }
     }
 }
