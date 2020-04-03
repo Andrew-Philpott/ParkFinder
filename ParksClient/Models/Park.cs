@@ -34,9 +34,9 @@ namespace ParksClient.Models
 
       return Park;
     }
-    public static List<Park> Query(string name, string isNational, string stateName)
+    public static List<Park> GetParks(string parkName, string stateName, string isNational, string region)
     {
-      var apiCallTask = ParkApiHelper.Query(name, isNational, stateName);
+      var apiCallTask = ParkApiHelper.Query(parkName, stateName, isNational, region);
       var result = apiCallTask.Result;
       JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
       List<Park> ParkList = JsonConvert.DeserializeObject<List<Park>>(jsonResponse.ToString());

@@ -1,0 +1,40 @@
+@{
+  Layout = "_Layout";
+}
+
+@using ParksClient.Models;
+@model IEnumerable<ParksClient.Models.Park>
+
+<div class="jumbotron">
+    <h2 class="display-4">Parks</h2>
+</div>
+ <div class="searchheader">
+    <div>
+      <h5>Search by name, state, region, or if it's a national park</h5>
+      <form asp-controller="Parks" asp-action="Query" method="get" class="bottom form-inline my-2 my-lg-0">
+        <input type="text" name="parkName">
+         <select class="custom-select custom-select-lg mb-3" name="stateName" asp-items="ViewBag.States"></select> 
+           <select class="custom-select custom-select-lg mb-3" name="region" asp-items="ViewBag.Regions"></select> 
+          <select class="custom-select custom-select-lg mb-3" name="isNational" asp-items="ViewBag.IsNationalPark"></select> 
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+ <br>
+<div class='content'>
+  @if(Model.Any())
+  {
+      @foreach (Park park in Model)
+      {
+          <h2>@Html.ActionLink($"{park.Name}",  "Details", new { id = park.ParkId })</h2>
+      }
+  }
+  else
+  {
+      <h3>No destinations available</h3>
+  }
+</div>
+
+<div class='footer'>
+  <div>@Html.ActionLink("Add an destination", "Create")</div>
+</div>

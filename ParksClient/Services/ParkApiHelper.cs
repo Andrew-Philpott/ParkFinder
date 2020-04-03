@@ -28,10 +28,10 @@ namespace ParksClient.Services
       var response = await client.ExecuteAsync(request);
       return response.Content;
     }
-    public static async Task<string> Query(string name, string isNational, string stateName)
+    public static async Task<string> Query(string parkName, string stateName, string isNational, string region)
     {
       RestClient client = new RestClient("http://localhost:5005/api");
-      RestRequest request = new RestRequest($"parks/search?name={name}&isNational={isNational}&stateName={stateName}", Method.GET);
+      RestRequest request = new RestRequest($"parks/search?parkName={parkName}&stateName={stateName}&isNational={isNational}&region={region}", Method.GET);
       request.AddHeader("Content-Type", "application/json");
       var response = await client.ExecuteAsync(request);
       Console.WriteLine("In apihelper search, response value: " + response);

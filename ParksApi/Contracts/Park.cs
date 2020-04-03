@@ -7,6 +7,6 @@ namespace ParksApi.Contracts
   {
     Park GetPark(int id);
     IEnumerable<Park> GetParks();
-    IEnumerable<Park> GetParksQuery(string name, string isNational, string stateName);
+    IEnumerable<Park> GetParksQuery(string parkName, string stateName, string isNational, string region);
   }
 }
