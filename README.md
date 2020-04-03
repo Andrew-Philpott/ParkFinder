@@ -42,9 +42,9 @@ An API that allows users to GET and POST reviews about various state and nationa
 
 | Details | /parks/:id | GET | Displays details of a specific park |
 
-| Delete | /parks/delete/:id | Get | Offers a from to delete a park |
+| Search | /parks/search | Get | Offers filered list of parks |
 
-| DeleteConfirmed | /parks/:id | POST | Deletes a specific park |
+| Remove | /parks/:id | POST | Deletes a specific park |
 
 </details>
 
