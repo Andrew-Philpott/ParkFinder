@@ -20,6 +20,14 @@ namespace ParksClient.Services
       var response = await client.ExecuteAsync(request);
       return response.Content;
     }
+
+    public static async Task<string> GetAllStates()
+    {
+      RestClient client = new RestClient("http://localhost:5005/api");
+      RestRequest request = new RestRequest($"states", Method.GET);
+      var response = await client.ExecuteAsync(request);
+      return response.Content;
+    }
     public static async Task<string> Query(string name, string isNational, string stateName)
     {
       RestClient client = new RestClient("http://localhost:5005/api");

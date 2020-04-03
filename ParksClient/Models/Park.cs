@@ -42,6 +42,17 @@ namespace ParksClient.Models
       List<Park> ParkList = JsonConvert.DeserializeObject<List<Park>>(jsonResponse.ToString());
       return ParkList;
     }
+
+    public static List<State> GetAllStates()
+    {
+      var apiCallTask = ParkApiHelper.GetAllStates();
+      var result = apiCallTask.Result;
+
+      JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+      List<State> ParkList = JsonConvert.DeserializeObject<List<State>>(jsonResponse.ToString());
+
+      return ParkList;
+    }
     public static void Post(Park Park)
     {
       string jsonPark = JsonConvert.SerializeObject(Park);

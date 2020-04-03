@@ -11,5 +11,6 @@ namespace ParksClient.Models
     public string Name { get; set; }
     public string Region { get; set; }
     public virtual ICollection<Park> Parks { get; set; }
+
   }
 }

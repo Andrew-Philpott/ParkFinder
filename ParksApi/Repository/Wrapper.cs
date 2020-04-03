@@ -7,6 +7,7 @@ namespace ParksApi.Repository
   {
     private ParksApiContext _parksApiContext;
     private IParkRepository _park;
+    private IStateRepository _state;
     public IParkRepository Park
     {
       get
@@ -17,6 +18,19 @@ namespace ParksApi.Repository
         }
 
         return _park;
+      }
+    }
+
+    public IStateRepository State
+    {
+      get
+      {
+        if (_state == null)
+        {
+          _state = new StateRepository(_parksApiContext);
+        }
+
+        return _state;
       }
     }
 
