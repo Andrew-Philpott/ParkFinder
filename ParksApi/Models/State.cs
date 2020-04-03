@@ -1,17 +1,23 @@
 
+
+using ParksApi.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ParksApi.Models
 {
-    public class State
-    {
-        public State()
-        {
-            this.Parks = new HashSet<Park>();
-        }
-        public int StateId { get; set; }
-        public string Name { get; set; }
-        public string Region { get; set; }
-        public ICollection<Park> Parks { get; set; }
-    }
+  [Table("state")]
+  public class State
+  {
+    [Key]
+    public int StateId { get; set; }
+
+    [Required(ErrorMessage = "State name is required")]
+    public string Name { get; set; }
+
+    [Required(ErrorMessage = "State name is required")]
+    public string Region { get; set; }
+    public ICollection<Park> Parks { get; set; }
+  }
 }
