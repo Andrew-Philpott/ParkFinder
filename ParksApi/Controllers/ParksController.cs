@@ -31,6 +31,12 @@ namespace ParksApi.Controllers
       return _db.Park.GetPark(id);
     }
 
+    [HttpGet("search")]
+    public ActionResult<IEnumerable<Park>> Search(string name, string isNational, string stateName)
+    {
+      return _db.Park.GetParksQuery(name, isNational, stateName).ToList();
+    }
+
     // POST api/parks
     [HttpPost]
     public void Post([FromBody] Park park)
