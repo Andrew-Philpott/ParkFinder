@@ -11,7 +11,6 @@ namespace ParksClient.Models
     public string Name { get; set; }
     public bool IsNational { get; set; }
     public int StateId { get; set; }
-    public State State { get; set; }
 
     public static List<Park> GetAll()
     {

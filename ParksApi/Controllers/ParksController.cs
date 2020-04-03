@@ -58,7 +58,7 @@ namespace ParksApi.Controllers
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
-      var park = _db.Park.GetPark(id);
+      Park park = _db.Park.GetPark(id);
       _db.Park.Delete(park);
       _db.Save();
     }

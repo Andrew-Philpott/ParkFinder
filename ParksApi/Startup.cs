@@ -37,18 +37,15 @@ namespace ParksApi
       services.ConfigureMySqlContext(Configuration);
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app)
     {
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
+      app.UseStaticFiles();
 
-      //   app.UseHttpsRedirection();
+      app.UseCors("CorsPolicy");
 
       app.UseRouting();
 
-      //   app.UseAuthorization();
+      app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
       {

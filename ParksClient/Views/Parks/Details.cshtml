@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@model ParksClient.Models.Park;
+
+
+<div class="jumbotron">
+    <h2 class="display-4">@($"{Model.Name}")</h2>
+</div>
+
+<div class='content'>
+
+</div>
+
+<div>@Html.ActionLink("Edit Park", "Edit", new {id = Model.ParkId})</div>
+<form asp-action="Remove" asp-controller="Destinations" method="post">
+    @Html.HiddenFor(model => model.ParkId)
+    <br>
+    <input type="submit" value="Delete" class="btn btn-secondary" />
+  </form>
+</div>
