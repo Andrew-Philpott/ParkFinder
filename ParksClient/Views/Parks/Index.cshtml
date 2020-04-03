@@ -8,18 +8,31 @@
 <div class="jumbotron">
     <h2 class="display-4">Parks</h2>
 </div>
- <div class="searchheader">
-    <div>
-      <h5>Search by name, state, region, or if it's a national park</h5>
-      <form asp-controller="Parks" asp-action="Query" method="get" class="bottom form-inline my-2 my-lg-0">
-        <input type="text" name="parkName">
-         <select class="custom-select custom-select-lg mb-3" name="stateName" asp-items="ViewBag.States"></select> 
-           <select class="custom-select custom-select-lg mb-3" name="region" asp-items="ViewBag.Regions"></select> 
-          <select class="custom-select custom-select-lg mb-3" name="isNational" asp-items="ViewBag.IsNationalPark"></select> 
+
+<h5>Search by name, state, region, or if it's a national park</h5>
+<form asp-controller="Parks" asp-action="Query" method="get" class="bottom form-inline my-2 my-lg-0">
+<div class="form-group">
+ <label for="state-name">State:</label>
+<select id="state-name" class="custom-select custom-select-lg mb-3" name="stateName" asp-items="ViewBag.States"></select> 
+</div>
+<br>
+<div class="form-group">
+  <label for="region">Region:</label>
+  <select id="region" class="custom-select custom-select-lg mb-3" name="region" asp-items="ViewBag.Regions"></select> 
+</div>
+<br>
+<div class="form-group">
+  <label for="is-national">State or national:</label>
+  <select id="is-national" class="custom-select custom-select-lg mb-3" name="isNational" asp-items="ViewBag.IsNationalPark"></select> 
+</div>
+<br>
+<div class="form-group">
+   <label for="park-name">Park Name:</label>
+    <input type="text" class="form-control" id="park-name">
+</div>
+
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
-    </div>
-  </div>
  <br>
 <div class='content'>
   @if(Model.Any())
@@ -31,10 +44,8 @@
   }
   else
   {
-      <h3>No destinations available</h3>
+      <h3>No Parks available</h3>
   }
 </div>
 
-<div class='footer'>
-  <div>@Html.ActionLink("Add an destination", "Create")</div>
-</div>
+  <div>@Html.ActionLink("Add a park", "Create")</div>
