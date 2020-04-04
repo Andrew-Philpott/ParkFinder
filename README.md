@@ -30,6 +30,7 @@ An API that allows users to GET and POST reviews about various state and nationa
 
 <details>
   <summary>Click to expand!</summary>
+MVC
 | Route Name | URL Path | HTTP Method | Purpose |
 | :--------- | :------- | :---------- | :------- |
 | Index | / | GET | Homepage: displays welcome message & link to review parks |
@@ -45,6 +46,28 @@ An API that allows users to GET and POST reviews about various state and nationa
 | Search | /parks/search | Get | Offers filered list of parks |
 
 | Remove | /parks/:id | POST | Deletes a specific park |
+
+API
+| HTTP Method | URL Path | Purpose |
+| :--------- | :------- | :------- |
+
+| GET | /parks | Retrieve all parks |
+
+| GET | /parks/{id} | Retrieve a park by it's id |
+
+| GET | /parks/{name} | Retrieve a list of parks by name |
+
+| GET | /parks/{isNational} | Retrieve a list of parks by name |
+
+| Create | /parks/create | Offers a form to create a park |
+
+| Create | /parks | Create a new park object |
+
+| Details | /parks/:id | Displays details of a specific park |
+
+| Search | /parks/search | Offers filered list of parks |
+
+| Remove | /parks/:id | Deletes a specific park |
 
 </details>
 
