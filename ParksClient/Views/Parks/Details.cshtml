@@ -14,9 +14,4 @@
 </div>
 
 <div>@Html.ActionLink("Edit Park", "Edit", new {id = Model.ParkId})</div>
-<form asp-action="Remove" asp-controller="Destinations" method="post">
-    @Html.HiddenFor(model => model.ParkId)
-    <br>
-    <input type="submit" value="Delete" class="btn btn-secondary" />
-  </form>
-</div>
+<div>@Html.ActionLink("Delete Park", "Delete", new {id = Model.ParkId})</div>
