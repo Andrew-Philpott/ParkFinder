@@ -5,34 +5,37 @@
 @using ParksClient.Models;
 @model IEnumerable<ParksClient.Models.Park>
 
-<div class="jumbotron">
-    <h2 class="display-4">Parks</h2>
-</div>
 
-<h5>Search by name, state, region, or if it's a national park</h5>
-<form asp-controller="Parks" asp-action="Query" method="get" class="bottom form-inline my-2 my-lg-0">
-<div class="form-group">
- <label for="state-name">State:</label>
-<select id="state-name" class="custom-select custom-select-lg mb-3" name="stateName" asp-items="ViewBag.States"></select> 
-</div>
+<img src="https://ewscripps.brightspotcdn.com/dims4/default/bf1fd34/2147483647/strip/true/crop/640x360+0+33/resize/1280x720!/quality/90/?url=https%3A%2F%2Fmediaassets.thedenverchannel.com%2Fphoto%2F2012%2F10%2F09%2FRMNP-Dream-Lake-At-Sunrise-28963628_280930_ver1.0_640_480.jpg" class="img-fluid" alt="">
 <br>
-<div class="form-group">
-  <label for="region">Region:</label>
-  <select id="region" class="custom-select custom-select-lg mb-3" name="region" asp-items="ViewBag.Regions"></select> 
-</div>
 <br>
-<div class="form-group">
-  <label for="is-national">State or national:</label>
-  <select id="is-national" class="custom-select custom-select-lg mb-3" name="isNational" asp-items="ViewBag.IsNationalPark"></select> 
-</div>
-<br>
-<div class="form-group">
-   <label for="park-name">Park Name:</label>
-    <input name="parkName" type="text" class="form-control" id="park-name">
-</div>
-
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+<h2>Search Parks</h2>
+<form id="search" asp-controller="Parks" asp-action="Query" method="get">
+  <div class="row">
+    <div class="col-4">
+      <label for="state-name">State:</label>
+      <select id="state-name" class="custom-select custom-select-lg mb-3" name="stateName" asp-items="ViewBag.States"></select> 
+    </div>
+    <div class="col-4">
+        <label for="is-national">State or national:</label>
+        <select id="is-national" class="custom-select custom-select-lg mb-3" name="isNational" asp-items="ViewBag.IsNationalPark"></select> 
+    </div>
+    <div class="col-4">
+      <label for="region">Region:</label>
+      <select id="region" class="custom-select custom-select-lg mb-3" name="region" asp-items="ViewBag.Regions"></select> 
+    </div>
+  </div>
+  <div id="search-park">
+    <div>
+      <label for="park-name">Park Name:</label>
+      <input name="parkName" type="text" class="form-control" id="park-name">
+    <div>
+      <button class="btn btn-outline-success form-control" type="submit">Search</button>
+    </div>
+    </div>
+  </div>
+</form>
+<hr>
  <br>
 <div class='content'>
   @if(Model.Any())
