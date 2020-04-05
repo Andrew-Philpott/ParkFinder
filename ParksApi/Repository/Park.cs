@@ -13,12 +13,12 @@ namespace ParksApi.Repository
     {
     }
 
-    public Park GetPark(int id)
+    public Park GetParkById(int id)
     {
-      return FindByCondition(entry => entry.ParkId == id).FirstOrDefault();
+      return FindByCondition(entry => entry.ParkId == id).SingleOrDefault();
     }
 
-    public IEnumerable<Park> GetParks()
+    public IEnumerable<Park> GetAllParks()
     {
       return FindAll().OrderBy(x => x.Name);
     }
@@ -44,6 +44,27 @@ namespace ParksApi.Repository
       }
 
       return query.ToList();
+    }
+
+    public void CreatePark(Park park)
+    {
+      Create(park);
+    }
+
+    public void UpdatePark(int id, Park parkToUpdate)
+    {
+      var park = GetParkById(id);
+      if (park == null)
+        throw new AppException("Park not found");
+      parkToUpdate.ParkId = id;
+      Update(parkToUpdate);
+    }
+
+    public void DeletePark(int id)
+    {
+      var park = GetParkById(id);
+      if (park != null)
+        Delete(park);
     }
   }
 }

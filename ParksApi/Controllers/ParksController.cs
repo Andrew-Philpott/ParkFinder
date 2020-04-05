@@ -20,16 +20,16 @@ namespace ParksApi.Controllers
 
     //GET api/parks
     [HttpGet]
-    public ActionResult<IEnumerable<Park>> GetParks()
+    public ActionResult<IEnumerable<Park>> GetAllParks()
     {
-      return _db.Park.GetParks().ToList();
+      return _db.Park.GetAllParks().ToList();
     }
 
     // GET api/parks/5
     [HttpGet("{id}")]
-    public ActionResult<Park> GetPark(int id)
+    public ActionResult<Park> GetParkById(int id)
     {
-      return _db.Park.GetPark(id);
+      return _db.Park.GetParkById(id);
     }
 
     [HttpGet("search")]
@@ -40,18 +40,17 @@ namespace ParksApi.Controllers
 
     // POST api/parks
     [HttpPost]
-    public void PostPark([FromBody] Park park)
+    public void CreatePark([FromBody] Park park)
     {
-      _db.Park.Create(park);
+      _db.Park.CreatePark(park);
       _db.Save();
     }
 
     // PUT api/parks/8
     [HttpPut("{id}")]
-    public void PutPark(int id, [FromBody] Park park)
+    public void UpdatePark(int id, [FromBody] Park park)
     {
-      park.ParkId = id;
-      _db.Park.Update(park);
+      _db.Park.UpdatePark(id, park);
       _db.Save();
     }
 
@@ -59,8 +58,7 @@ namespace ParksApi.Controllers
     [HttpDelete("{id}")]
     public void DeletePark(int id)
     {
-      Park park = _db.Park.GetPark(id);
-      _db.Park.Delete(park);
+      _db.Park.DeletePark(id);
       _db.Save();
     }
   }

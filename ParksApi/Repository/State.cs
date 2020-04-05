@@ -12,15 +12,28 @@ namespace ParksApi.Repository
     public StateRepository(ParksApiContext parksApiContext) : base(parksApiContext)
     {
     }
-    public State GetState(int id)
+    public State GetStateById(int id)
     {
       return FindByCondition(entry => entry.StateId == id).FirstOrDefault();
     }
-    public IEnumerable<State> GetStates()
+    public IEnumerable<State> GetAllStates()
     {
       return FindAll().OrderBy(x => x.Name);
     }
 
+    public void CreateState(State state)
+    {
+      Create(state);
+    }
 
+    public void UpdateState(State state)
+    {
+      Update(state);
+    }
+
+    public void DeleteState(State state)
+    {
+      Delete(state);
+    }
   }
 }

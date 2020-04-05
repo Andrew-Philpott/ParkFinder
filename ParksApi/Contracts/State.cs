@@ -5,7 +5,7 @@ namespace ParksApi.Contracts
 {
   public interface IStateRepository : IRepositoryBase<State>
   {
-    State GetState(int id);
-    IEnumerable<State> GetStates();
+    State GetStateById(int id);
+    IEnumerable<State> GetAllStates();
   }
 }

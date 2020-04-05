@@ -21,9 +21,9 @@ namespace ParksApi.Controllers
     //GET api/parks
     [AllowAnonymous]
     [HttpGet]
-    public ActionResult<IEnumerable<State>> Get()
+    public ActionResult<IEnumerable<State>> GetAllStates()
     {
-      return _db.State.GetStates().ToList();
+      return _db.State.GetAllStates().ToList();
     }
   }
 }
