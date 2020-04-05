@@ -23,10 +23,17 @@ namespace ParksApi.Repository
       return FindAll().OrderBy(x => x.Name);
     }
 
-    public IEnumerable<Park> GetParksQuery(string parkName, string stateName, string isNational, string region)
+    public IEnumerable<Park> GetParksQuery(string parkName, string isNational, IQueryable<State> states)
     {
-
-      IQueryable<Park> query = this.ParksApiContext.Parks.AsQueryable();
+      IQueryable<Park> query = null;
+      if (states != null)
+      {
+        query = (from p in FindAll() join s in states on p.StateId equals s.StateId select p);
+      }
+      else
+      {
+        query = (FindAll().AsQueryable());
+      }
       if (parkName != null)
       {
         query = query.Where(x => x.Name == parkName);

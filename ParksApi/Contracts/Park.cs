@@ -1,5 +1,7 @@
 using ParksApi.Entities;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace ParksApi.Contracts
 {
@@ -7,7 +9,7 @@ namespace ParksApi.Contracts
   {
     Park GetParkById(int id);
     IEnumerable<Park> GetAllParks();
-    IEnumerable<Park> GetParksQuery(string parkName, string stateName, string isNational, string region);
+    IEnumerable<Park> GetParksQuery(string parkName, string isNational, IQueryable<State> states);
     void CreatePark(Park park);
     void UpdatePark(int id, Park park);
     void DeletePark(int id);

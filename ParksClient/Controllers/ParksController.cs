@@ -13,10 +13,11 @@ namespace ParksClient.Controllers
     {
     }
 
+    [HttpGet("parks")]
     public IActionResult Index()
     {
       List<SelectListItem> statesList = new List<SelectListItem>();
-      List<SelectListItem> regions = new List<SelectListItem>();
+      List<SelectListItem> regionsList = new List<SelectListItem>();
       List<SelectListItem> isNationalPark = new List<SelectListItem>();
       isNationalPark.Insert(0, new SelectListItem { Text = "", Value = "" });
       isNationalPark.Insert(1, new SelectListItem { Text = "State", Value = "false" });
@@ -28,7 +29,7 @@ namespace ParksClient.Controllers
       statesList.AddRange(states.Select(a =>
       new SelectListItem
       {
-        Value = a.StateId.ToString(),
+        Value = a.Name,
         Text = a.Name
       }
       ).OrderBy(n => n.Text));
@@ -37,17 +38,18 @@ namespace ParksClient.Controllers
       statesList.Insert(0, new SelectListItem { Text = "", Value = "" });
       ViewBag.States = statesList;
 
-      regions.AddRange(states.Select(a =>
-     new SelectListItem
-     {
-       Value = a.StateId.ToString(),
-       Text = a.Region
-     }
-     ).OrderBy(n => n.Text));
+      IQueryable<string> regions = states.Select(x => x.Region).Distinct();
+      regionsList.AddRange(regions.Select(x =>
+      new SelectListItem
+      {
+        Value = x,
+        Text = x
+      }
+      ).OrderBy(n => n.Text));
 
 
-      regions.Insert(0, new SelectListItem { Text = "", Value = "" });
-      ViewBag.Regions = regions;
+      regionsList.Insert(0, new SelectListItem { Text = "", Value = "" });
+      ViewBag.Regions = regionsList;
 
       return View(parks);
     }
@@ -56,11 +58,11 @@ namespace ParksClient.Controllers
       var parks = Park.GetParks(parkName, stateName, isNational, region);
       return View("Search", parks);
     }
-
+    [HttpGet("parks/create")]
     public IActionResult Create()
     {
       List<SelectListItem> statesList = new List<SelectListItem>();
-      List<SelectListItem> regions = new List<SelectListItem>();
+      List<SelectListItem> regionsList = new List<SelectListItem>();
       List<SelectListItem> isNationalPark = new List<SelectListItem>();
       isNationalPark.Insert(0, new SelectListItem { Text = "", Value = "" });
       isNationalPark.Insert(1, new SelectListItem { Text = "State", Value = "false" });
@@ -81,34 +83,36 @@ namespace ParksClient.Controllers
       statesList.Insert(0, new SelectListItem { Text = "", Value = "" });
       ViewBag.States = statesList;
 
-      regions.AddRange(states.Select(a =>
-     new SelectListItem
-     {
-       Value = a.StateId.ToString(),
-       Text = a.Region
-     }
-     ).OrderBy(n => n.Text));
+      IQueryable<string> regions = states.Select(x => x.Region).Distinct();
+      regionsList.AddRange(regions.Select(x =>
+      new SelectListItem
+      {
+        Value = x,
+        Text = x
+      }
+      ).OrderBy(n => n.Text));
 
 
-      regions.Insert(0, new SelectListItem { Text = "", Value = "" });
-      ViewBag.Regions = regions;
+      regionsList.Insert(0, new SelectListItem { Text = "", Value = "" });
+      ViewBag.Regions = regionsList;
       return View();
     }
 
     [HttpPost]
-    public IActionResult CreatePark(Park Park)
+    public IActionResult Create(Park Park)
     {
       Park.Post(Park);
       return RedirectToAction("Index");
     }
 
+    [HttpGet("parks/{id}")]
     public IActionResult Details(int id)
     {
       var thisPark = Park.Get(id);
       return View(thisPark);
     }
 
-
+    [HttpGet("parks/edit/{id}")]
     public IActionResult Edit(int id)
     {
       var park = Park.Get(id);
@@ -121,14 +125,16 @@ namespace ParksClient.Controllers
       Park.Put(Park);
       return RedirectToAction("Details", new { id = Park.ParkId });
     }
+
+    [HttpGet("parks/delete/{id}")]
     public IActionResult Delete(int id)
     {
       var park = Park.Get(id);
       return View(park);
     }
 
-    [HttpPost]
-    public IActionResult Remove(int id)
+    [HttpPost, ActionName("Delete")]
+    public IActionResult DeleteConfirmed(int id)
     {
       Park.Delete(id);
       return RedirectToAction("Index");

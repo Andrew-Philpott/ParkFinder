@@ -3,6 +3,7 @@ using ParksApi.Helpers;
 using ParksApi.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ParksApi.Repository
 {
@@ -14,13 +15,21 @@ namespace ParksApi.Repository
     }
     public State GetStateById(int id)
     {
-      return FindByCondition(entry => entry.StateId == id).FirstOrDefault();
+      return FindByCondition(entry => entry.StateId == id).SingleOrDefault();
     }
     public IEnumerable<State> GetAllStates()
     {
       return FindAll().OrderBy(x => x.Name);
     }
 
+    public IQueryable<State> GetStatesQuery(string name, string region)
+    {
+      if (name != null)
+        return FindByCondition(entry => entry.Name == name);
+      if (region != null)
+        return FindByCondition(entry => entry.Region == region);
+      return null;
+    }
     public void CreateState(State state)
     {
       Create(state);

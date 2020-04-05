@@ -2,6 +2,7 @@
   Layout = "_Layout";
 }
 
+@using ParksClient.Models;
 @model ParksClient.Models.Park;
 
 <div class="jumbotron">
@@ -9,7 +10,7 @@
 </div>
 
 <div class='content'>
-<form asp-action="Remove" asp-controller="Parks" method="post">
+<form asp-action="Delete" asp-controller="Parks" method="post">
     @Html.HiddenFor(model => model.ParkId)
     <br>
     <input type="submit" value="Delete" class="btn btn-secondary" />

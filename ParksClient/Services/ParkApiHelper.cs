@@ -37,21 +37,21 @@ namespace ParksClient.Services
       Console.WriteLine("In apihelper search, response value: " + response);
       return response.Content;
     }
-    public static async Task Post(string newDestination)
+    public static async Task Post(string park)
     {
       RestClient client = new RestClient("http://localhost:5005/api");
       RestRequest request = new RestRequest($"parks", Method.POST);
       request.AddHeader("Content-Type", "application/json");
-      request.AddJsonBody(newDestination);
+      request.AddJsonBody(park);
       var response = await client.ExecuteAsync(request);
     }
-    public static async Task Put(int id, string newDestination)
+    public static async Task Put(int id, string park)
     {
       RestClient client = new RestClient("http://localhost:5005/api");
       RestRequest request = new RestRequest($"parks/{id}", Method.PUT);
 
       request.AddHeader("Content-Type", "application/json");
-      request.AddJsonBody(newDestination);
+      request.AddJsonBody(park);
       var response = await client.ExecuteAsync(request);
     }
     public static async Task Delete(int id)
