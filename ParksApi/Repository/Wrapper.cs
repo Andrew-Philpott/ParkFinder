@@ -1,5 +1,5 @@
 using ParksApi.Contracts;
-using ParksApi.Models;
+using ParksApi.Helpers;
 
 namespace ParksApi.Repository
 {
@@ -8,6 +8,7 @@ namespace ParksApi.Repository
     private ParksApiContext _parksApiContext;
     private IParkRepository _park;
     private IStateRepository _state;
+    private IUserRepository _user;
     public IParkRepository Park
     {
       get
@@ -31,6 +32,19 @@ namespace ParksApi.Repository
         }
 
         return _state;
+      }
+    }
+
+    public IUserRepository User
+    {
+      get
+      {
+        if (_user == null)
+        {
+          _user = new UserRepository(_parksApiContext);
+        }
+
+        return _user;
       }
     }
 

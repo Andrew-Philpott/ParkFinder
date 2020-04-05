@@ -1,4 +1,4 @@
-using ParksApi.Models;
+using ParksApi.Entities;
 using System.Collections.Generic;
 
 namespace ParksApi.Contracts
@@ -7,6 +7,5 @@ namespace ParksApi.Contracts
   {
     State GetState(int id);
     IEnumerable<State> GetStates();
-
   }
 }

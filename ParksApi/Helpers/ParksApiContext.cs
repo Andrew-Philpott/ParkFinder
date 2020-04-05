@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using ParksApi.Entities;
 
-namespace ParksApi.Models
+namespace ParksApi.Helpers
 {
   public class ParksApiContext : DbContext
   {
@@ -9,6 +10,7 @@ namespace ParksApi.Models
     }
     public DbSet<State> States { get; set; }
     public DbSet<Park> Parks { get; set; }
+    public DbSet<User> Users { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);

@@ -4,6 +4,7 @@ namespace ParksApi.Contracts
   {
     IStateRepository State { get; }
     IParkRepository Park { get; }
+    IUserRepository User { get; }
     void Save();
   }
 }

@@ -1,27 +1,14 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ParksApi.Repository;
-using ParksApi.Contracts;
-using ParksApi.Models;
+using ParksApi.Helpers;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using ParksApi.ServiceExtensions;
 
 namespace ParksApi
 {
-  public static class ServiceExtensions
-  {
-    public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
-    {
-      var connectionString = config["ConnectionStrings:DefaultConnection"];
-      services.AddDbContext<ParksApiContext>(o => o.UseMySql(connectionString));
-    }
-    public static void ConfigureRepositoryWrapper(this IServiceCollection services)
-    {
-      services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-    }
-  }
   public class Startup
   {
     public Startup(IConfiguration configuration)
@@ -32,19 +19,49 @@ namespace ParksApi
     public IConfiguration Configuration { get; }
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddCors();
       services.AddControllers();
-      services.ConfigureRepositoryWrapper();
       services.ConfigureMySqlContext(Configuration);
+
+      var appSettingsSection = Configuration.GetSection("AppSettings");
+      services.Configure<AppSettings>(appSettingsSection);
+
+      var appSettings = appSettingsSection.Get<AppSettings>();
+      var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+      services.AddAuthentication(x =>
+      {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      })
+      .AddJwtBearer(x =>
+      {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(key),
+          ValidateIssuer = false,
+          ValidateAudience = false
+        };
+      });
+
+      services.ConfigureRepositoryWrapper();
     }
 
     public void Configure(IApplicationBuilder app)
     {
       app.UseStaticFiles();
 
-      app.UseCors("CorsPolicy");
-
       app.UseRouting();
 
+      app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>

@@ -1,4 +1,4 @@
-using ParksApi.Models;
+using ParksApi.Entities;
 using System.Collections.Generic;
 
 namespace ParksApi.Contracts

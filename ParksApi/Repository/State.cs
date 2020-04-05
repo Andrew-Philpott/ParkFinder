@@ -1,5 +1,6 @@
 using ParksApi.Contracts;
-using ParksApi.Models;
+using ParksApi.Helpers;
+using ParksApi.Entities;
 using System.Collections.Generic;
 using System.Linq;
 

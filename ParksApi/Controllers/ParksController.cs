@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
-using ParksApi.Models;
+using ParksApi.Entities;
 using ParksApi.Contracts;
 
 namespace ParksApi.Controllers
 {
-
+  [Authorize]
   [ApiController]
   [Route("api/[controller]")]
   public class ParksController : ControllerBase
