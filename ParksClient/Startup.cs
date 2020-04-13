@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ParksClient
 {
@@ -18,8 +19,12 @@ namespace ParksClient
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllersWithViews();
+      // services.AddAuthentication(x =>
+      // {
+      //   x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+      //   x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      // }).AddJwtBearer();
     }
-
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       if (env.IsDevelopment())
@@ -33,11 +38,10 @@ namespace ParksClient
         app.UseHsts();
       }
 
-      //   app.UseHttpsRedirection();
       app.UseStaticFiles();
 
       app.UseRouting();
-
+      // app.UseAuthorization();
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllerRoute(

@@ -15,7 +15,7 @@ namespace ParksApi.Repository
 
     public Park GetParkById(int id)
     {
-      return FindByCondition(entry => entry.ParkId == id).SingleOrDefault();
+      return FindByCondition(entry => entry.Id == id).SingleOrDefault();
     }
 
     public IEnumerable<Park> GetAllParks()
@@ -28,7 +28,7 @@ namespace ParksApi.Repository
       IQueryable<Park> query = null;
       if (states != null)
       {
-        query = (from p in FindAll() join s in states on p.StateId equals s.StateId select p);
+        query = (from p in FindAll() join s in states on p.StateId equals s.Id select p);
       }
       else
       {
@@ -63,7 +63,7 @@ namespace ParksApi.Repository
       var park = GetParkById(id);
       if (park == null)
         throw new AppException("Park not found");
-      parkToUpdate.ParkId = id;
+      parkToUpdate.Id = id;
       Update(parkToUpdate);
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ParksClient.Models;
-using ParksClient.Services;
+using System.Security.Claims;
 
 namespace ParksClient.Controllers
 {
@@ -58,9 +58,12 @@ namespace ParksClient.Controllers
       var parks = Park.GetParks(parkName, stateName, isNational, region);
       return View("Search", parks);
     }
+
     [HttpGet("parks/create")]
     public IActionResult Create()
     {
+      var user = this.User.FindFirst(ClaimTypes.Name)?.Value;
+
       List<SelectListItem> statesList = new List<SelectListItem>();
       List<SelectListItem> regionsList = new List<SelectListItem>();
       List<SelectListItem> isNationalPark = new List<SelectListItem>();
@@ -115,6 +118,16 @@ namespace ParksClient.Controllers
     [HttpGet("parks/edit/{id}")]
     public IActionResult Edit(int id)
     {
+      List<SelectListItem> statesList = new List<SelectListItem>();
+      IQueryable<State> states = Park.GetAllStates().AsQueryable();
+      statesList.AddRange(states.Select(a =>
+      new SelectListItem
+      {
+        Value = a.StateId.ToString(),
+        Text = a.Name
+      }
+      ).OrderBy(n => n.Text));
+      ViewBag.StateId = statesList;
       var park = Park.Get(id);
       return View(park);
     }
@@ -123,7 +136,7 @@ namespace ParksClient.Controllers
     public IActionResult Edit(Park Park)
     {
       Park.Put(Park);
-      return RedirectToAction("Details", new { id = Park.ParkId });
+      return RedirectToAction("Index");
     }
 
     [HttpGet("parks/delete/{id}")]

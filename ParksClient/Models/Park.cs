@@ -1,20 +1,27 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ParksClient.Services;
+using ParksClient.Helpers;
 
 namespace ParksClient.Models
 {
   public class Park
   {
-    public int ParkId { get; set; }
+    public int Id { get; set; }
+
     public string Name { get; set; }
+
     public bool IsNational { get; set; }
-    public int StateId { get; set; }
+
+    public string StateId { get; set; }
+
+    public string StateName { get; set; }
+
+    public string Region { get; set; }
 
     public static List<Park> GetAll()
     {
-      var apiCallTask = ParkApiHelper.GetAll();
+      var apiCallTask = ParkApi.GetAll();
       var result = apiCallTask.Result;
 
       JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
@@ -25,7 +32,7 @@ namespace ParksClient.Models
 
     public static Park Get(int id)
     {
-      var apiCallTask = ParkApiHelper.Get(id);
+      var apiCallTask = ParkApi.Get(id);
       var result = apiCallTask.Result;
 
       JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
@@ -35,7 +42,7 @@ namespace ParksClient.Models
     }
     public static List<Park> GetParks(string parkName, string stateName, string isNational, string region)
     {
-      var apiCallTask = ParkApiHelper.Query(parkName, stateName, isNational, region);
+      var apiCallTask = ParkApi.Query(parkName, stateName, isNational, region);
       var result = apiCallTask.Result;
       JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
       List<Park> ParkList = JsonConvert.DeserializeObject<List<Park>>(jsonResponse.ToString());
@@ -44,7 +51,7 @@ namespace ParksClient.Models
 
     public static List<State> GetAllStates()
     {
-      var apiCallTask = ParkApiHelper.GetAllStates();
+      var apiCallTask = ParkApi.GetAllStates();
       var result = apiCallTask.Result;
 
       JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
@@ -55,17 +62,17 @@ namespace ParksClient.Models
     public static void Post(Park Park)
     {
       string jsonPark = JsonConvert.SerializeObject(Park);
-      var apiCallTask = ParkApiHelper.Post(jsonPark);
+      var apiCallTask = ParkApi.Post(jsonPark);
     }
 
     public static void Put(Park Park)
     {
       string jsonPark = JsonConvert.SerializeObject(Park);
-      var apiCallTask = ParkApiHelper.Put(Park.ParkId, jsonPark);
+      var apiCallTask = ParkApi.Put(Park.Id, jsonPark);
     }
     public static void Delete(int id)
     {
-      var apiCallTask = ParkApiHelper.Delete(id);
+      var apiCallTask = ParkApi.Delete(id);
     }
   }
 

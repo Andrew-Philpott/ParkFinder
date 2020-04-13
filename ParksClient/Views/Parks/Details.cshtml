@@ -4,14 +4,15 @@
 
 @model ParksClient.Models.Park;
 
-
 <div class="jumbotron">
-    <h2 class="display-4">@($"{Model.Name}")</h2>
+  <h2>@($"{Model.Name}")</h2>
 </div>
 
 <div class='content'>
 
 </div>
-
-<div>@Html.ActionLink("Edit Park", "Edit", new {id = Model.ParkId})</div>
-<div>@Html.ActionLink("Delete Park", "Delete", new {id = Model.ParkId})</div>
+<div class="links">
+  <a href="/parks/edit/@Model.Id">Edit park</a>
+  <a href="/parks/delete/@Model.Id">Delete park</a>
+  <a href="/parks">Back to parks</a>
+</div>

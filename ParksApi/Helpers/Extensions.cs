@@ -1,13 +1,12 @@
-using ParksApi.Helpers;
-using ParksApi.Contracts;
-using ParksApi.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using ParksApi.Repository;
+using ParksApi.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ParksApi.ServiceExtensions
+namespace ParksApi.Helpers
 {
-  public static class ServiceExtensions
+  public static class Extensions
   {
     public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
     {
@@ -17,11 +16,6 @@ namespace ParksApi.ServiceExtensions
     public static void ConfigureRepositoryWrapper(this IServiceCollection services)
     {
       services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-    }
-
-    public static void ConfigureJwt(this IServiceCollection services)
-    {
-
     }
   }
 }

@@ -2,21 +2,20 @@
   Layout = "_Layout";
 }
 
-@using ParksClient.Models;
 @model ParksClient.Models.Park;
 
 <div class="jumbotron">
-    <h2 class="display-4"> Are you sure you want to delete: @Html.DisplayTextFor(model => model.Name)</h2>
+  <h2> Are you sure you want to delete: @Html.DisplayTextFor(model => model.Name)</h2>
 </div>
 
 <div class='content'>
-<form asp-action="Delete" asp-controller="Parks" method="post">
-    @Html.HiddenFor(model => model.ParkId)
+  <form asp-action="Delete" asp-controller="Parks" method="post">
+    @Html.HiddenFor(model => model.Id)
     <br>
     <input type="submit" value="Delete" class="btn btn-secondary" />
   </form>
 </div>
 
 <div class='links'>
-  <p>@Html.ActionLink("Back to all destinations", "Index")</p>
+  <a href="/parks/@Model.Id">Park details</a>
 </div>

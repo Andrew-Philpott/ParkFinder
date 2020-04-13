@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace parksapi.Migrations
 {
-    public partial class User : Migration
+    public partial class review : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,76 +11,85 @@ namespace parksapi.Migrations
                 name: "park",
                 columns: table => new
                 {
-                    ParkId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     IsNational = table.Column<bool>(nullable: false),
-                    StateId = table.Column<int>(nullable: false),
+                    StateId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_park", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "review",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    ParkId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_park", x => x.ParkId);
+                    table.PrimaryKey("PK_review", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "state",
                 columns: table => new
                 {
-                    StateId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Region = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_state", x => x.StateId);
+                    table.PrimaryKey("PK_state", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "user",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    Role = table.Column<string>(nullable: true),
-                    Token = table.Column<string>(nullable: true),
-                    PasswordHash = table.Column<byte[]>(nullable: true),
-                    PasswordSalt = table.Column<byte[]>(nullable: true)
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user", x => x.UserId);
+                    table.PrimaryKey("PK_user", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
                 table: "park",
-                columns: new[] { "ParkId", "IsNational", "Name", "StateId", "UserId" },
+                columns: new[] { "Id", "IsNational", "Name", "StateId" },
                 values: new object[,]
                 {
-                    { 1, false, "Gulf State Park", 1, 0 },
-                    { 14, true, "Olympic National Park", 47, 0 },
-                    { 12, true, "Liberty Island", 32, 0 },
-                    { 11, false, "Letchworth State Park", 32, 0 },
-                    { 10, true, "Yosemite National Park", 5, 0 },
-                    { 9, false, "Calaveras Big Trees State Park", 5, 0 },
-                    { 8, true, "Hot Springs National Park", 4, 0 },
-                    { 13, false, "Saint Edward State Park", 47, 0 },
-                    { 6, true, "Grand Canyon National Park", 3, 0 },
-                    { 5, false, "Cattali Cove State Park", 3, 0 },
-                    { 4, true, "Kena Fjords National Park", 2, 0 },
-                    { 3, false, "Chugach State Park", 2, 0 },
-                    { 2, true, "Russel Cave National Monument", 1, 0 },
-                    { 7, false, "Queen Wilhelmina State Park", 4, 0 }
+                    { 1, false, "Gulf State Park", 1 },
+                    { 14, true, "Olympic National Park", 47 },
+                    { 12, true, "Liberty Island", 32 },
+                    { 11, false, "Letchworth State Park", 32 },
+                    { 10, true, "Yosemite National Park", 5 },
+                    { 9, false, "Calaveras Big Trees State Park", 5 },
+                    { 8, true, "Hot Springs National Park", 4 },
+                    { 13, false, "Saint Edward State Park", 47 },
+                    { 6, true, "Grand Canyon National Park", 3 },
+                    { 5, false, "Cattali Cove State Park", 3 },
+                    { 4, true, "Kena Fjords National Park", 2 },
+                    { 3, false, "Chugach State Park", 2 },
+                    { 2, true, "Russel Cave National Monument", 1 },
+                    { 7, false, "Queen Wilhelmina State Park", 4 }
                 });
 
             migrationBuilder.InsertData(
                 table: "state",
-                columns: new[] { "StateId", "Name", "Region" },
+                columns: new[] { "Id", "Name", "Region" },
                 values: new object[,]
                 {
                     { 35, "Ohio", "Midwest" },
@@ -141,6 +149,9 @@ namespace parksapi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "park");
+
+            migrationBuilder.DropTable(
+                name: "review");
 
             migrationBuilder.DropTable(
                 name: "state");

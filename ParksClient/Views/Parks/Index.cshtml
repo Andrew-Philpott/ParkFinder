@@ -5,7 +5,6 @@
 @using ParksClient.Models;
 @model IEnumerable<ParksClient.Models.Park>
 
-
 <img src="https://ewscripps.brightspotcdn.com/dims4/default/bf1fd34/2147483647/strip/true/crop/640x360+0+33/resize/1280x720!/quality/90/?url=https%3A%2F%2Fmediaassets.thedenverchannel.com%2Fphoto%2F2012%2F10%2F09%2FRMNP-Dream-Lake-At-Sunrise-28963628_280930_ver1.0_640_480.jpg" class="img-fluid" alt="">
 <br>
 <br>
@@ -17,8 +16,8 @@
       <select id="state-name" class="custom-select custom-select-lg mb-3" name="stateName" asp-items="ViewBag.States"></select> 
     </div>
     <div class="col-4">
-        <label for="is-national">State or national:</label>
-        <select id="is-national" class="custom-select custom-select-lg mb-3" name="isNational" asp-items="ViewBag.IsNationalPark"></select> 
+      <label for="is-national">State or national:</label>
+      <select id="is-national" class="custom-select custom-select-lg mb-3" name="isNational" asp-items="ViewBag.IsNationalPark"></select> 
     </div>
     <div class="col-4">
       <label for="region">Region:</label>
@@ -36,19 +35,22 @@
   </div>
 </form>
 <hr>
- <br>
+<br>
 <div class='content'>
-  @if(Model.Any())
-  {
-      @foreach (Park park in Model)
-      {
-          <h2>@Html.ActionLink($"{park.Name}",  "Details", new { id = park.ParkId })</h2>
-      }
-  }
-  else
-  {
-      <h3>No Parks available</h3>
-  }
+@if(Model.Any())
+{
+    @foreach (Park park in Model)
+    {
+        <h2>@Html.ActionLink($"{park.Name}",  "Details", new { id = park.Id })</h2>
+    }
+}
+else
+{
+    <h3>No Parks available</h3>
+}
 </div>
 
-  <div>@Html.ActionLink("Add a park", "Create")</div>
+<div class="links">
+  <a href="/parks/create">Add a park</a>
+  <a href="/home">Home</a>
+</div>

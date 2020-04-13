@@ -1,26 +1,29 @@
 @{
   Layout = "_Layout";
 }
-@using ParksClient.Models;
+
 @model ParksClient.Models.Park;
 
 <div class="jumbotron">
-    <h2 class="display-4"> Edit: @Html.DisplayTextFor(model => model.Name)</h2>
+    <h2> Edit: @Html.DisplayTextFor(model => model.Name)</h2>
 </div>
-<form asp-action="Edit" asp-controller="Parks" method="post">
+
 <div class='content'>
-    @Html.HiddenFor(model => model.ParkId)
-    @Html.HiddenFor(model => model.StateId)
+  <form asp-action="Edit" asp-controller="Parks" method="post">
+    @Html.HiddenFor(model => model.Id)
     @Html.LabelFor(model => model.Name)
     @Html.TextBoxFor(model => model.Name)
     <br>
     @Html.LabelFor(model => model.IsNational)
     @Html.TextBoxFor(model => model.IsNational)
     <br>
+     <label for="state-name">State:</label>
+      <select id="state-name" asp-for="StateId" name="stateName" asp-items="ViewBag.StateId"></select> 
     <input type="submit" value="Edit" class="btn btn-secondary" />
+  </form>
 </div>
-</form>
 
 <div class='links'>
-  <p>@Html.ActionLink("Back to all destinations", "Index")</p>
+  <a href="/parks/@Model.Id">Park details</a>
+  <a href="/parks">Back to parks</a>
 </div>

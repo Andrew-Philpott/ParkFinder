@@ -1,18 +1,12 @@
 using ParksApi.Entities;
-using System.Collections.Generic;
 
 namespace ParksApi.Contracts
 {
-  public interface IUserRepository : IRepositoryBase<User>
+  public interface IUserRepository : IRepositoryBase<ApplicationUser>
   {
-    User GetUserById(int id);
-    User GetUserByEmail(string email);
-    IEnumerable<User> GetAllUsers();
-    IEnumerable<User> GetUsersByRole(string role);
-    User AuthenticateByUserNameAndPassword(string userName, string password);
-    User AuthenticateByEmailAndPassword(string email, string password);
-    void CreateUser(User user, string password);
-    void UpdateUser(User user, string password = null);
+    ApplicationUser GetUserById(int id);
+    ApplicationUser AuthenticateByUserNameAndPassword(string userName, string password);
+    ApplicationUser CreateUser(ApplicationUser user, string password);
     void DeleteUser(int id);
   }
 }

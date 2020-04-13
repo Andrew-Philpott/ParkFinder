@@ -6,22 +6,23 @@
 @model IEnumerable<ParksClient.Models.Park>
 
 <div class="jumbotron">
-    <h1 class="display-4">Search Results</h1>
+    <h1>Search Results</h1>
 </div>
 
 <div class='content'>
-  @if(Model.Any())
+@if(Model.Any())
+{
+  @foreach (Park park in @Model)
   {
-      @foreach (Park park in Model)
-      {
-          <h2>@Html.ActionLink($"{park.Name}",  "Details", new { id = park.ParkId })</h2>
-      }
+    <h2>@Html.ActionLink($"{park.Name}",  "Details", new { id = park.Id })</h2>
   }
-  else
-  {
-      <h3>No Parks available</h3>
-  }
+}
+else
+{
+  <h3>No Parks available</h3>
+}
 </div>
-
- <div>@Html.ActionLink("Add a park", "Create")</div>
-  <div>@Html.ActionLink("Back to Parks", "Index")</div>
+<div class="links">
+  <a href="/parks">Back to parks</a>
+  <a href="/home">Home</a>
+</div>

@@ -1,6 +1,5 @@
 using ParksApi.Contracts;
 using ParksApi.Helpers;
-using ParksApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

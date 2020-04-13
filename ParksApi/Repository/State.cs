@@ -15,7 +15,7 @@ namespace ParksApi.Repository
     }
     public State GetStateById(int id)
     {
-      return FindByCondition(entry => entry.StateId == id).SingleOrDefault();
+      return FindByCondition(entry => entry.Id == id).SingleOrDefault();
     }
     public IEnumerable<State> GetAllStates()
     {
@@ -24,11 +24,16 @@ namespace ParksApi.Repository
 
     public IQueryable<State> GetStatesQuery(string name, string region)
     {
-      if (name != null)
-        return FindByCondition(entry => entry.Name == name);
+      var query = FindAll().AsQueryable();
       if (region != null)
-        return FindByCondition(entry => entry.Region == region);
-      return null;
+      {
+        query = query.Where(entry => entry.Region == region);
+      }
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+      return query;
     }
     public void CreateState(State state)
     {

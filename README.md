@@ -1,14 +1,21 @@
 # ParksApi
 
-#### State and National Parks Service 04/03/2020
+#### State and National Parks Service 04/12/2020
 
 #### By Andrew Philott
 
 ## Description
 
-An API that allows users to GET and POST reviews about various state and national parks
+An application that allows users to create, read, update, and delete parks throughout the United States. Users can filter parks by region, name, state, and/or if parks are state or national.
 
-## Specs
+## Futher Exploration
+
+Cors:
+The method AddCors() allows for the configuration of cross origin resource sharing. AllowAnyOrigin() enables the MVC application (localhost:5001) to communicate with the API (localhost:4000). AllowAnyMethod() enables the user to perform all Http methods (GET, POST, PUT, DELETE) on the API. AllowAnyHeader means that the API is able to process all HTTP formatted requests.
+JWT:
+Generated a JWT token on the server side after authenticating a user so that the API wouldn't be susceptible to hackers trying to inject malicious information into the database for the user.
+
+\*Note I have taken JWT authentication out at the moment because I'm unsure as to how I can save the session for MVC and add the token to all headers.
 
 ### Installation and Configuration:
 
@@ -42,6 +49,8 @@ MVC
 | Create | /parks | POST | Create a new park object |
 
 | Details | /parks/:id | GET | Displays details of a specific park |
+
+| Edit | /parks/edit/:id | GET | Displays details of a specific park |
 
 | Search | /parks/search | Get | Offers filered list of parks |
 

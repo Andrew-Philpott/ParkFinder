@@ -7,7 +7,7 @@ namespace ParksApi.Entities
   public class State
   {
     [Key]
-    public int StateId { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Region { get; set; }
   }

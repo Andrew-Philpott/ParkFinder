@@ -7,14 +7,11 @@ namespace ParksApi.Entities
   public class Park
   {
     [Key]
-    public int ParkId { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
     public bool IsNational { get; set; }
 
     [ForeignKey(nameof(State))]
     public int StateId { get; set; }
-
-    [ForeignKey(nameof(User))]
-    public int UserId { get; set; }
   }
 }
